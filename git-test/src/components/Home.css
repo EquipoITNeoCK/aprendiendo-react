@@ -1,0 +1,52 @@
+/* Home.css */
+.container {
+  text-align: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #333;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #c0c0c0;
+  cursor: not-allowed;
+}
+
+p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+pre {
+  text-align: left;
+  background-color: #f8f8f8;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+.carousel .slide img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
