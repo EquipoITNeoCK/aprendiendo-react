@@ -23,6 +23,7 @@ interface Pokemon {
 const Home: React.FC = () => {
   const [data, setData] = useState<Pokemon | null>(null);
   const [text, setText] = useState('');
+  const [savedText, setSavedText] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,6 +37,22 @@ const Home: React.FC = () => {
 
   const handleTextChange = (value: string) => {
     setText(value);
+  };
+
+  const handleSave = () => {
+    setSavedText(text);
+  };
+
+  const modules = {
+    toolbar: [
+      [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+      [{size: []}],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+      ['link', 'image'],
+      [{ 'color': [] }, { 'background': [] }],
+      ['clean']
+    ],
   };
 
   return (
@@ -90,8 +107,19 @@ const Home: React.FC = () => {
               </Box>
               <Box sx={{ mt: 4 }}>
                 <Typography variant="h6" gutterBottom>Rich Text Editor</Typography>
-                <ReactQuill value={text} onChange={handleTextChange} />
+                <ReactQuill value={text} onChange={handleTextChange} modules={modules} />
+                <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={handleSave}>
+                  Guardar
+                </Button>
               </Box>
+              {savedText && (
+                <Box sx={{ mt: 4 }}>
+                  <Typography variant="h6" gutterBottom>Texto Guardado</Typography>
+                  <Paper elevation={3} sx={{ p: 2, whiteSpace: 'pre-wrap' }}>
+                    <div dangerouslySetInnerHTML={{ __html: savedText }} />
+                  </Paper>
+                </Box>
+              )}
             </CardContent>
           </Card>
         )}
