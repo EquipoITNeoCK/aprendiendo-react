@@ -41,17 +41,19 @@ const Home: React.FC = () => {
 
   const handleSave = () => {
     setSavedText(text);
+    console.log(text);
   };
 
+  // Configuración de los módulos de ReactQuill, definiendo las opciones de la barra de herramientas
   const modules = {
     toolbar: [
-      [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
-      [{size: []}],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-      ['link', 'image'],
-      [{ 'color': [] }, { 'background': [] }],
-      ['clean']
+      [{ 'header': '1'}, {'header': '2'}, { 'font': [] }], // Encabezados y fuentes
+      [{size: []}], // Tamaños de fuente
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'], // Estilos de texto
+      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}], // Listas y sangría
+      ['link', 'image'], // Enlaces e imágenes
+      [{ 'color': [] }, { 'background': [] }], // Colores de texto y fondo
+      ['clean'] // Botón para limpiar el formato
     ],
   };
 
@@ -107,7 +109,12 @@ const Home: React.FC = () => {
               </Box>
               <Box sx={{ mt: 4 }}>
                 <Typography variant="h6" gutterBottom>Rich Text Editor</Typography>
-                <ReactQuill value={text} onChange={handleTextChange} modules={modules} />
+                {/* Componente ReactQuill para el editor de texto enriquecido */}
+                <ReactQuill
+                  value={text} // Valor actual del contenido del editor
+                  onChange={handleTextChange} // Función para manejar cambios en el contenido
+                  modules={modules} // Configuración de la barra de herramientas
+                />
                 <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={handleSave}>
                   Guardar
                 </Button>
@@ -116,6 +123,7 @@ const Home: React.FC = () => {
                 <Box sx={{ mt: 4 }}>
                   <Typography variant="h6" gutterBottom>Texto Guardado</Typography>
                   <Paper elevation={3} sx={{ p: 2, whiteSpace: 'pre-wrap' }}>
+                    {/* Renderizado del contenido guardado con formato HTML */}
                     <div dangerouslySetInnerHTML={{ __html: savedText }} />
                   </Paper>
                 </Box>
