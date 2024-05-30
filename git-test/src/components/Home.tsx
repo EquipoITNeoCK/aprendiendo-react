@@ -26,7 +26,7 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('https://pokeapi.co/api/v2/pokemon/prinplup')
+    fetch(import.meta.env.VITE_ENDPOINT_URL)
       .then(response => response.json())
       .then(data => {
         setData(data);
