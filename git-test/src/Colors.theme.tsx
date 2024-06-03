@@ -1,4 +1,3 @@
-//Colors.theme.tsx
 
 const colors = {
   primary: {

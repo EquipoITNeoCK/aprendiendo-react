@@ -1,44 +1,38 @@
-// Home.tsx
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, Card, CardContent, CardMedia, Box, Button, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import PokemonData from '../Pokemon';
-import {FetchData} from '../FetchData';
+import PokemonData from '../interfaces/Pokemon.tsx';
+import {FetchData} from '../services/FetchData.tsx';
 
 const Home: React.FC = () => {
-  const [data, setData] = useState<PokemonData | null>(null); // Estado para los datos del Pokémon
-  const [text, setText] = useState(''); // Estado para el contenido del editor de texto
-  const [savedText, setSavedText] = useState<string | null>(null); // Estado para el contenido guardado
+  const [data, setData] = useState<PokemonData | null>(null);
+  const [text, setText] = useState('');
+  const [savedText, setSavedText] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Realiza la llamada a la API para obtener los datos del Pokémon
       FetchData(setData)
   }, []);
 
-  // Función para manejar los cambios en el contenido del editor de texto
   const handleTextChange = (value: string) => {
     setText(value);
   };
 
-  // Función para guardar el contenido del editor de texto en el estado savedText
   const handleSave = () => {
     setSavedText(text);
-    console.log(text);
   };
 
-  // Configuración de los módulos de ReactQuill, definiendo las opciones de la barra de herramientas
   const modules = {
     toolbar: [
-      [{ 'header': '1'}, {'header': '2'}, { 'font': [] }], // Encabezados y fuentes
-      [{size: []}], // Tamaños de fuente
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'], // Estilos de texto
-      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}], // Listas y sangría
-      ['link', 'image'], // Enlaces e imágenes
-      [{ 'color': [] }, { 'background': [] }], // Colores de texto y fondo
-      ['clean'] // Botón para limpiar el formato
+      [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+      [{size: []}],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+      ['link', 'image'],
+      [{ 'color': [] }, { 'background': [] }],
+      ['clean']
     ],
   };
 
@@ -80,11 +74,10 @@ const Home: React.FC = () => {
               </Box>
               <Box sx={{ mt: 4 }}>
                 <Typography variant="h6" gutterBottom>Rich Text Editor</Typography>
-                {/* Componente ReactQuill para el editor de texto enriquecido */}
                 <ReactQuill
-                  value={text} // Valor actual del contenido del editor
-                  onChange={handleTextChange} // Función para manejar cambios en el contenido
-                  modules={modules} // Configuración de la barra de herramientas
+                  value={text}
+                  onChange={handleTextChange}
+                  modules={modules}
                 />
                 <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={handleSave}>
                   Guardar
@@ -94,7 +87,6 @@ const Home: React.FC = () => {
                 <Box sx={{ mt: 4 }}>
                   <Typography variant="h6" gutterBottom>Texto Guardado</Typography>
                   <Paper elevation={3} sx={{ p: 2, whiteSpace: 'pre-wrap' }}>
-                    {/* Renderizado del contenido guardado con formato HTML */}
                     <div dangerouslySetInnerHTML={{ __html: savedText }} />
                   </Paper>
                 </Box>

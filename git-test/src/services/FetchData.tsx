@@ -1,4 +1,4 @@
-import PokemonData from './Pokemon';
+import PokemonData from '../interfaces/Pokemon.tsx';
 
 export const FetchData = (setData: (data: PokemonData | null) => void) => {
   fetch(import.meta.env.VITE_ENDPOINT_URL)

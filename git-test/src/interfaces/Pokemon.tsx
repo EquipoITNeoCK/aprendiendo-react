@@ -1,4 +1,3 @@
-// Pokemon.ts
 interface PokemonData {
   name: string;
   abilities: Ability[];
