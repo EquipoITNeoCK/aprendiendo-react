@@ -1,44 +1,29 @@
+// Home.tsx
 import React, { useEffect, useState } from 'react';
-import { Container, Typography, Card, CardContent, CardMedia, Grid, Box, Button, Paper } from '@mui/material';
+import { Container, Typography, Card, CardContent, CardMedia, Box, Button, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-
-interface Pokemon {
-  id: number;
-  name: string;
-  height: number;
-  weight: number;
-  base_experience: number;
-  sprites: {
-    front_default: string;
-  };
-  abilities: {
-    ability: {
-      name: string;
-    };
-  }[];
-}
+import PokemonData from '../Pokemon';
+import {FetchData} from '../FetchData';
 
 const Home: React.FC = () => {
-  const [data, setData] = useState<Pokemon | null>(null);
-  const [text, setText] = useState('');
-  const [savedText, setSavedText] = useState<string | null>(null);
+  const [data, setData] = useState<PokemonData | null>(null); // Estado para los datos del Pokémon
+  const [text, setText] = useState(''); // Estado para el contenido del editor de texto
+  const [savedText, setSavedText] = useState<string | null>(null); // Estado para el contenido guardado
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(import.meta.env.VITE_ENDPOINT_URL)
-      .then(response => response.json())
-      .then(data => {
-        setData(data);
-      })
-      .catch(error => console.error('Error fetching data:', error));
+    // Realiza la llamada a la API para obtener los datos del Pokémon
+      FetchData(setData)
   }, []);
 
+  // Función para manejar los cambios en el contenido del editor de texto
   const handleTextChange = (value: string) => {
     setText(value);
   };
 
+  // Función para guardar el contenido del editor de texto en el estado savedText
   const handleSave = () => {
     setSavedText(text);
     console.log(text);
@@ -76,20 +61,6 @@ const Home: React.FC = () => {
               <Typography variant="h5" component="div" align="center" sx={{ mb: 2, fontWeight: 'bold', color: '#3f51b5' }}>
                 {data.name.charAt(0).toUpperCase() + data.name.slice(1)}
               </Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={6}>
-                  <Typography variant="body2" color="text.secondary">ID: {data.id}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography variant="body2" color="text.secondary">Height: {data.height}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography variant="body2" color="text.secondary">Weight: {data.weight}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography variant="body2" color="text.secondary">Base Exp: {data.base_experience}</Typography>
-                </Grid>
-              </Grid>
               <Box sx={{ mt: 2 }}>
                 <Typography variant="body2" color="text.secondary" align="center" sx={{ fontWeight: 'bold' }}>Abilities:</Typography>
                 <ul style={{ listStyleType: 'none', padding: 0, textAlign: 'center' }}>
