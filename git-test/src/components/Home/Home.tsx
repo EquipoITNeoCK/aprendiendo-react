@@ -3,8 +3,8 @@ import { Container, Typography, Card, CardContent, CardMedia, Box, Button, Paper
 import { useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import PokemonData from '../interfaces/Pokemon.tsx';
-import {FetchData} from '../services/FetchData.tsx';
+import PokemonData from '../../interfaces/Pokemon.tsx';
+import {FetchData} from '../../services/FetchData.tsx';
 
 const Home: React.FC = () => {
   const [data, setData] = useState<PokemonData | null>(null);

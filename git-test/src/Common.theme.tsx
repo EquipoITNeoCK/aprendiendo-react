@@ -1,4 +1,3 @@
-//Common.theme.tsx
 
 import {
   createTheme,
