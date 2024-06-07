@@ -17,6 +17,37 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const navigate = useNavigate();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(import.meta.env.VITE_ENDPOINT_API, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ user: email, password })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem('access_token', data.access_token);
+
+        localStorage.setItem('message', data.message);
+
+        if (data.access_token != null) {
+          navigate('/pokemonTable');
+        }
+      } else {
+        console.error('Login failed:', data);
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <StyledLoginContainer component="main" maxWidth="xs" >
@@ -43,7 +74,7 @@ const Login: React.FC = () => {
                 by neoCK
               </StyledLoginBox>
             </StyledLoginTypography2>
-            <Box component="form" sx={{ mt: 1 }}>
+            <Box component="form" sx={{ mt: 1 }} onSubmit={handleLogin}>
               <TextField
                 margin="normal"
                 required
