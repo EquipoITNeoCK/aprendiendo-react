@@ -3,8 +3,8 @@ import { Container, Typography, Card, CardContent, CardMedia, Box, Button, Paper
 import { useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import PokemonData from '../../interfaces/Pokemon.tsx';
-import {FetchData} from '../../services/FetchData.tsx';
+import {PokemonData} from '../../interfaces/Pokemon.tsx';
+import {FetchData} from '../../services/fetchData.tsx';
 
 const Home: React.FC = () => {
   const [data, setData] = useState<PokemonData | null>(null);
@@ -49,7 +49,7 @@ const Home: React.FC = () => {
               height="250"
               image={data.sprites.front_default}
               alt={data.name}
-              sx={{ objectFit: 'contain', p: 2, backgroundColor: '#f5f5f5', borderTopLeftRadius: 3, borderTopRightRadius: 3 }}
+              sx={{ p: 2, borderTopLeftRadius: 3, borderTopRightRadius: 3 }}
             />
             <CardContent>
               <Typography variant="h5" component="div" align="center" sx={{ mb: 2, fontWeight: 'bold', color: '#3f51b5' }}>

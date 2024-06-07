@@ -1,4 +1,4 @@
-interface PokemonData {
+export interface PokemonData {
   name: string;
   abilities: Ability[];
   sprites: Sprites;
@@ -27,4 +27,3 @@ export interface Sprites {
   animated?: Sprites;
 }
 
-export default PokemonData;
